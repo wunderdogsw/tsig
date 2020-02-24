@@ -10,6 +10,8 @@ cd api && yarn && cd ../web && yarn && cd ..
 docker-compose up -d
 ```
 
+Go to http://localhost:3000
+
 Shutdown
 ```
 docker-compose down
