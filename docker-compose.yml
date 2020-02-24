@@ -1,0 +1,40 @@
+version: "3.5"
+services:
+  web:
+    build: ./web
+    command: yarn start
+    depends_on:
+      - api
+    restart: on-failure
+    environment:
+      REACT_APP_LOCAL: local
+    volumes:
+      - ./web:/usr/src/app
+    ports:
+      - "3000:3000"
+  api:
+    build: ./api
+    command: yarn start
+    depends_on:
+      - db
+    restart: on-failure
+    environment:
+      LOCAL: local
+      TOKEN_SECRET: onlyfordev
+      POSTGRES_PASSWORD: onlyfordev
+    volumes:
+      - ./api:/usr/src/app
+      - ./data/certs:/usr/src/app/data/certs
+    ports:
+      - "8000:8080"
+  db:
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: typeormdb
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: onlyfordev
+    volumes:
+      - ./data/sql-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
