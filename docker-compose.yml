@@ -34,7 +34,5 @@ services:
       POSTGRES_DB: typeormdb
       POSTGRES_USER: root
       POSTGRES_PASSWORD: onlyfordev
-    volumes:
-      - ./data/sql-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
