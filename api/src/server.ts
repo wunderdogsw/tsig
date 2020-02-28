@@ -5,9 +5,7 @@ import express from "express";
 import http from "http";
 
 import ormconfig from "../ormconfig";
-import AscentController from "./controllers/AscentController";
-import UserController from "./controllers/UserController";
-import AuthController from "./controllers/AuthController";
+import NoteController from "./controllers/NoteController";
 import {
   authorizationChecker,
   currentUserChecker
@@ -21,7 +19,7 @@ const startServer = async () => {
 
   const server = express();
   const app = useExpressServer(server, {
-    controllers: [AuthController, UserController, AscentController],
+    controllers: [NoteController],
     cors: true,
     authorizationChecker,
     currentUserChecker
