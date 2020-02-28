@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, getRepository } from "typeorm";
 import { useExpressServer } from "routing-controllers";
 import express from "express";
 import http from "http";
@@ -12,6 +12,7 @@ import {
   authorizationChecker,
   currentUserChecker
 } from "./controllers/actionHandlers";
+import { Note } from "./entity/Note";
 
 const port: number = 8080;
 
@@ -24,6 +25,13 @@ const startServer = async () => {
     cors: true,
     authorizationChecker,
     currentUserChecker
+  });
+
+  app.get("/notes", async (req, res) => {
+    const noteRepository = getRepository(Note);
+    const notes = await noteRepository.find();
+
+    res.status(200).json(notes);
   });
 
   http.createServer(app).listen(port);
