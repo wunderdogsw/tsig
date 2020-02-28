@@ -34,6 +34,15 @@ const startServer = async () => {
     res.status(200).json(notes);
   });
 
+  app.post("/notes", async (req, res) => {
+    const note = req.body;
+    const noteRepository = getRepository(Note);
+
+    const savedNote = await noteRepository.save(note);
+
+    res.status(201).json(savedNote);
+  });
+
   http.createServer(app).listen(port);
 };
 
