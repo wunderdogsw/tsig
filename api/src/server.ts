@@ -45,6 +45,21 @@ const startServer = async () => {
     res.status(201).json(savedNote);
   });
 
+  app.delete("/notes/:id", async (req, res) => {
+    const noteRepository = getRepository(Note);
+
+    try {
+      const note = await noteRepository.findOne(req.params.id);
+      if (!note) {
+        res.status(404).json({ message: "not found" });
+      }
+      await noteRepository.delete(req.params.id);
+      res.sendStatus(204);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  });
+
   http.createServer(app).listen(port);
 };
 
