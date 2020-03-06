@@ -51,7 +51,7 @@ const startServer = async () => {
     try {
       const note = await noteRepository.findOne(req.params.id);
       if (!note) {
-        res.status(404).json({ message: "not found" });
+        return res.status(404).json({ message: "not found" });
       }
       await noteRepository.delete(req.params.id);
       res.sendStatus(204);
