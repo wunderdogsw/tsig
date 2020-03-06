@@ -27,6 +27,8 @@ const startServer = async () => {
     currentUserChecker
   });
 
+  app.use(express.json());
+
   app.get("/notes", async (req, res) => {
     const noteRepository = getRepository(Note);
     const notes = await noteRepository.find();
