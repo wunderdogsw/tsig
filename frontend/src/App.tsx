@@ -1,24 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  ThemeProvider,
+  createMuiTheme,
+  CssBaseline,
+  Paper
+} from "@material-ui/core";
+import { Note } from "./domain/Note";
+import { AddNote } from "./components/AddNote";
 
 function App() {
+  const notes: Note[] = [{ id: 1, title: "Jotain", description: "Kuvaus" }];
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ThemeProvider theme={createMuiTheme({ palette: { type: "dark" } })}>
+        <CssBaseline />
+        <AddNote />
+        <Paper>
+          <List>
+            {notes.map(note => (
+              <ListItem key={note.id}>
+                <ListItemText
+                  primary={note.title}
+                  secondary={
+                    <Typography variant="body2">{note.description}</Typography>
+                  }
+                ></ListItemText>
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
+      </ThemeProvider>
     </div>
   );
 }
