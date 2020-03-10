@@ -1,6 +1,6 @@
 version: "3.5"
 services:
-  web:
+  frontend:
     build: ./frontend
     command: yarn start
     depends_on:
@@ -10,6 +10,7 @@ services:
       REACT_APP_LOCAL: local
     volumes:
       - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
     ports:
       - "3000:3000"
   api:
@@ -24,6 +25,7 @@ services:
       POSTGRES_PASSWORD: onlyfordev
     volumes:
       - ./api:/usr/src/app
+      - /usr/src/app/node_modules
       - ./data/certs:/usr/src/app/data/certs
     ports:
       - "8000:8080"

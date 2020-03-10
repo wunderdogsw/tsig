@@ -4,8 +4,8 @@ FROM node:12-alpine
 WORKDIR /usr/src/app
 
 # Install dependencies
-COPY package.json ./
-COPY yarn.lock ./
+COPY package.json .
+COPY yarn.lock .
 RUN yarn
 
 # Copy source code
